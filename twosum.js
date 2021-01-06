@@ -36,6 +36,9 @@ Only one valid answer exists.
  * @param {number} target
  * @return {number[]}
  */
+
+// Time: O(n)
+// Space: O(n)
 var twoSum = function(nums, target) {
   const comp = {};
   for (let i = 0; i < nums.length; i++) {
