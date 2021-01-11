@@ -67,9 +67,7 @@ var maxDepth = function(root) {
 
 // Bottom-Up Solution
 var maxDepth = function(root) {
-  if (root === null) {
-    return 0;
-  }
+  if (root === null) return 0;
   var leftDepth = maxDepth(root.left);
   var rightDepth = maxDepth(root.right);
   return Math.max(leftDepth, rightDepth) + 1;
