@@ -40,8 +40,30 @@ Follow up: If you have figured out the O(n) solution, try coding another solutio
  * @param {number[]} nums
  * @return {number}
  */
+
+// Kadane's Algorithm
+// Time: O(n)
+// Space: O(n)
+// Is there a way to optimize this?
 var maxSubArray = function(nums) {
-  
+  let dynamic = new Array(nums.length);
+  dynamic[0] = nums[0];
+
+  let max = nums[0];
+
+  for (let i = 1; i < nums.length; i++) {
+    dynamic[i] = Math.max(nums[i], nums[i] + dynamic[i - 1]);
+    if (dynamic[i] > max) {
+        max = dynamic[i];
+    }
+  }
+
+  return max;
 };
 
 
+/*
+
+[-2,1,-3,4,-1,2,1,-5,4]
+
+*/
