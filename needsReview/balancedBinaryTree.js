@@ -42,6 +42,19 @@ The number of nodes in the tree is in the range [0, 5000].
  * @return {boolean}
  */
 var isBalanced = function(root) {
+  var result = true;
     
+  var dfs = function(node, depth) {
+    if (!node) return depth;
+    let leftHeight = dfs(node.left, depth + 1);
+    let rightHeight = dfs(node.right, depth + 1);
+    if (Math.abs(leftHeight - rightHeight) > 1) {
+      result = false;
+    }
+  };
+
+  dfs(root, 0);
+
+  return result;
 };
 
