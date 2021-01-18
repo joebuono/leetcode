@@ -39,7 +39,41 @@ Both l1 and l2 are sorted in non-decreasing order.
  * @return {ListNode}
  */
 var mergeTwoLists = function(l1, l2) {
-    
+  let dummyHead = new ListNode();
+
+  let i = l1;
+  let j = l2;
+  let k = dummyHead;
+
+  while (i && j) {
+   if (i.val < j.val) {
+      // push i
+      k.next = i;
+      i = i.next;
+    } else {
+      // push j
+      k.next = j;
+      j = j.next;
+    }
+    k = k.next;
+  }
+
+  // whatever is left over, push that
+  k.next = i ? i : j;
+
+  return dummyHead.next;
 };
 
+/*
 
+I: Head nodes of two linked lists
+O: A linked list in sorted order
+C:
+E:
+
+Two pointers
+
+
+
+
+*/
