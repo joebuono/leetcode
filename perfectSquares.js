@@ -31,16 +31,22 @@ var numSquares = function(n) {
 
   let leastSquares = Infinity;
 
-  var recurse = function(total, index) {
-    for (let i = index; i < squares.length; i++) {
-      
+  var recurse = function(currentInt, squareCount, index) {
+    for (let i = index; i >= 0; i--) {
+      let newInt = currentInt - squares[i];
+      if (newInt === 0) {
+        leastSquares = Math.min(leastSquares, squareCount + 1);
+      } else if (newInt > 0) {
+        recurse(newInt, squareCount + 1, i);
+      }
     }
   };
 
-  recurse(0, 0);
+  recurse(n, 0, squares.length - 1);
 
   return leastSquares;
 };
+
 
 /*
 
