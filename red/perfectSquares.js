@@ -21,6 +21,10 @@ Explanation: 13 = 4 + 9.
  * @param {number} n
  * @return {number}
  */
+
+
+// Fantastic video explaining Dynamic Programming approach:
+// https://www.youtube.com/watch?v=1xfx6M_GqFk&t=142s
 var numSquares = function(n) {
   let limit = Math.floor(Math.sqrt(n));
   let squares = [];
