@@ -40,8 +40,36 @@ Constraints:
  * @param {number} amount
  * @return {number}
  */
+
+// Time: (O(n * m))
+// Space: O(n)
 var coinChange = function(coins, amount) {
-    
+  if (!amount) return 0;
+  
+  let dp = new Array(amount + 1).fill(amount + 1);
+  dp[0] = 0;
+
+  for (let i = 0; i <= amount; i++) {
+    for (let j = 0; j < coins.length; j++) {
+      if (coins[j] <= i) {
+        dp[i] = Math.min(dp[i], 1 + dp[i - coins[j]]);
+      }
+    }
+  }
+
+  return dp[amount] > amount ? -1 : dp[amount];
 };
 
+/*
 
+The first thing that springs to mind is dynamic programming
+
+The key word is "fewest" (in the problem statement)
+
+let dp = []
+let coins = [1, 2, 5]
+
+dp = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+dp = [0, 1, 1, 2, 2, 1, 2, 2, 3, 3, 2 , 3]
+
+*/
