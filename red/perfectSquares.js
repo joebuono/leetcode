@@ -25,6 +25,49 @@ Explanation: 13 = 4 + 9.
 
 // Fantastic video explaining Dynamic Programming approach:
 // https://www.youtube.com/watch?v=1xfx6M_GqFk&t=142s
+
+// This is amazing. Such a cool solution!
+// Time: O(n * Math.sqrt(n))
+// Space: O(n)
+
+// Thought: Dynamic programming is basically 
+// memoizing the results of subproblems
+var numSquares = function(n) {
+  // check if the number is a perfect square
+  if (Math.sqrt(n) === Math.floor(Math.sqrt(n))) return 1;
+  if (n < 4) return n;
+
+  let dp = new Array(n + 1);
+
+  for (let i = 0; i <= n; i++) {
+    // Initialize the number of least squares for each integer
+    // to the integer itself (the number of 1-squared's)
+    dp[i] = i;
+    for (let j = 1; j * j <= i; j++) {
+      // This is the magic (dynamic programming):
+      // j is used to calculate the squares
+      // dp[i - j * j] represents the "least squares" value 
+      // previously calculated and memoized
+      // plus 1 for the operation to get to that number
+      dp[i] = Math.min(dp[i], 1 + dp[i - j * j]);
+    }
+  }
+
+  return dp[n];
+};
+
+/*
+
+Lagrange's 4-square theorem
+*** Every natural number is the sum of four squares ***
+- Also known as Bachet's conjecture
+
+So our answer will range from 1-4
+
+*/
+
+
+// naive recursive solution
 var numSquares = function(n) {
   let limit = Math.floor(Math.sqrt(n));
   let squares = [];
