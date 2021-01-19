@@ -44,6 +44,8 @@ Constraints:
 // Time: (O(n * m))
 // Space: O(n)
 var coinChange = function(coins, amount) {
+  // a minor optimization is to sort the coins,
+  // and then break once you encounter a coin bigger than the current amount
   if (!amount) return 0;
   
   let dp = new Array(amount + 1).fill(amount + 1);
