@@ -45,6 +45,7 @@ Follow up: If you have figured out the O(n) solution, try coding another solutio
 // Time: O(n)
 // Space: O(n)
 // Is there a way to optimize this?
+// The solution below from 1/21/21 is better! Constant space!
 var maxSubArray = function(nums) {
   let dynamic = new Array(nums.length);
   dynamic[0] = nums[0];
@@ -62,8 +63,17 @@ var maxSubArray = function(nums) {
 };
 
 
-/*
+// 1/21/21
+// Kadane's Algorithm?
+var maxSubArray = function(nums) {
+  let globalMax = nums[0];
+  let localMax = nums[0];
 
-[-2,1,-3,4,-1,2,1,-5,4]
+  for (let i = 1; i < nums.length; i++) {
+    localMax = Math.max(nums[i], localMax + nums[i]);
+    globalMax = Math.max(globalMax, localMax);
+  }
 
-*/
+  return globalMax;
+};
+
