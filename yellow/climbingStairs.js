@@ -66,3 +66,22 @@ var climbStairs = function(n) {
 
 // Oh, it's Fibonacci!
 
+// 1/21/21
+var climbStairs = function(n) {
+  // edge cases
+  if (n < 2) return 1;
+
+  var steps = [0, 1];
+
+  for (let i = 0; i < n; i++) {
+    let temp = steps[1];
+    steps[1] += steps[0];
+    steps[0] = temp;
+  }
+
+  return steps[1];
+};
+
+
+
+// [0, 1, 1, 2, 3]
