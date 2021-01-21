@@ -42,3 +42,19 @@ var maxProfit = function(prices) {
   return globalMax;
 };
 
+
+
+// 1/21/21
+var maxProfit = function(prices) {
+  var maxGlobalProfit = 0;
+  var minThusFar = prices[0];
+
+  for (let i = 1; i < prices.length; i++) {
+    // It also works if you swap these two lines
+    minThusFar = Math.min(minThusFar, prices[i]);
+    maxGlobalProfit = Math.max(maxGlobalProfit, prices[i] - minThusFar);
+  }
+
+  return maxGlobalProfit;
+};
+
