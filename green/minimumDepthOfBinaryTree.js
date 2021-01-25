@@ -36,6 +36,19 @@ The number of nodes in the tree is in the range [0, 105].
  * @return {number}
  */
 var minDepth = function(root) {
-    
+  if (!root) return null;
+  var minDepth = Infinity;
+  var dfs = function(node, depth) {
+    if (!node.left && !node.right) {
+      minDepth = Math.min(minDepth, depth);
+    } else {
+      if (node.left) dfs(node.left, depth + 1);
+      if (node.right) dfs(node.right, depth + 1);
+    }
+  };
+
+  dfs(root, 1);
+
+  return minDepth;
 };
 
