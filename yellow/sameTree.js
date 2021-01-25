@@ -42,6 +42,34 @@ The number of nodes in both trees is in the range [0, 100].
  * @param {TreeNode} q
  * @return {boolean}
  */
+
+// Elegant recursive solution from LeetCode
 var isSameTree = function(p, q) {
-    
+  if (!p && !q) return true;
+  if (!p || !q) return false;
+  if (p.val !== q.val) return false;
+  return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+};
+
+
+var isSameTree = function(p, q) {
+  var same = true;
+
+  var dfs = function(node1, node2) {
+    if (!node1 || !node2) {
+      if (!(node1 === null && node2 === null)) {
+        same = false;
+      }
+    } else {
+      if (node1.val !== node2.val) {
+        same = false;
+      }
+      dfs(node1.left, node2.left);
+      dfs(node1.right, node2.right);
+    }
+  };
+
+  dfs(p, q);
+
+  return same;
 };
