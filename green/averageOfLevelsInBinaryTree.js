@@ -29,6 +29,21 @@ The range of node's value is in the range of 32-bit signed integer.
  * @return {number[]}
  */
 var averageOfLevels = function(root) {
-    
+  let result = [];
+  let queue = [root];
+
+  while (queue.length) {
+    let size = queue.length;
+    let sum = 0;
+    for (let i = 0; i < size; i++) {
+      let currentNode = queue.shift();
+      sum += currentNode.val;
+      if (currentNode.left) queue.push(currentNode.left);
+      if (currentNode.right) queue.push(currentNode.right);
+    }
+    result.push(sum / size);
+  }
+
+  return result;
 };
 
