@@ -36,14 +36,30 @@ var diameterOfBinaryTree = function(root) {
     if (!node) return 0;
     let leftDepth = dfs(node.left);
     let rightDepth = dfs(node.right);
-    let diameter = leftDepth + rightDepth + 1;
+    let diameter = leftDepth + rightDepth + 1; // plus 1 for the node itself
     maxDiameter = Math.max(maxDiameter, diameter);
     return Math.max(leftDepth, rightDepth) + 1; // this is the line that tripped me up!
-    // you're calculating the maxDepth for each subtree (i.e., which is deeper, the lef or right subtree)
+    // you're calculating the maxDepth for each subtree (i.e., which is deeper, the left or right subtree)
     // plus 1 for the node itself
   };
 
   dfs(root);
+
+  return maxDiameter - 1;
+};
+
+// 1/26/21
+var diameterOfBinaryTree = function(root) {
+  var maxDiameter = 1;
+
+  var dfs = function(node) {
+    if (!root) return 0;
+    let leftDepth = dfs(node.left);
+    let rightDepth = dfs(node.right);
+    let diameter = leftDepth + rightDepth + 1;
+    maxDiameter = Math.max(maxDiameter, diameter);
+    return Math.max(leftDepth, rightDepth);
+  };
 
   return maxDiameter - 1;
 };
