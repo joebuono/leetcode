@@ -73,3 +73,9 @@ var maxDepth = function(root) {
   return Math.max(leftDepth, rightDepth) + 1;
 };
 
+// 1/26/21
+// One liner!
+var maxDepth = function(root) {
+  return root ? Math.max(maxDepth(root.left), maxDepth(root.right)) + 1 : 0;
+};
+
