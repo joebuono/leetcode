@@ -47,3 +47,13 @@ var invertTree = function(root) {
   return root;
 };
 
+// 1/27/21
+
+var invertTree = function(root) {
+  if (!root) return null;
+  let temp = invertTree(root.left);
+  root.left = invertTree(root.right);
+  root.right = temp;
+  return root;
+};
+

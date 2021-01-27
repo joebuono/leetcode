@@ -48,6 +48,23 @@ Return false.
  * @param {TreeNode} t
  * @return {boolean}
  */
+
+
+// Traverse every node in s, checking if t is a subtree
+var isSubtree = function(s, t) {
+  if (!s) return false;
+  if (isSameTree(s, t)) return true;
+  return isSubtree(s.left, t) || isSubtree(s.right, t);
+
+  function isSameTree(tree1, tree2) {
+    if (!tree1 && !tree2) return true;
+    if (!tree1 || !tree2) return false;
+    if (tree1.val !== tree2.val) return false;
+    return isSameTree(tree1.left, tree2.left) && isSameTree(tree1.right, tree2.right);
+  };
+};
+
+
 var isSubtree = function(s, t) {
   // pre-order traversal
   var preorder = function(node, isLeft) {
@@ -62,3 +79,5 @@ var isSubtree = function(s, t) {
   let string2 = preorder(t);
   return string1.indexOf(string2) > -1;
 };
+
+
