@@ -40,8 +40,22 @@ Can you solve it in O(N) time and O(1) space?
  * @param {string} T
  * @return {boolean}
  */
+
+// Solved with two stacks
 var backspaceCompare = function(S, T) {
-    
+  return stackify(S) === stackify(T);
+
+  function stackify(string) {
+    let stack = [];
+    for (let i = 0; i < string.length; i++) {
+      if (string[i] !== '#') {
+        stack.push(string[i]);
+      } else if (stack.length) {
+        stack.pop();
+      }
+    }
+    return stack.join('');
+  }
 };
 
 
