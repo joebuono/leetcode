@@ -34,6 +34,23 @@ Follow up: Squaring each element and sorting the new array is very trivial, coul
 // Two-pointer approach (because it's a sorted array?)
 // Time: O(n)
 // Space: O(n)
+
+var sortedSquares = function(nums) {
+  let result = new Array(nums.length);
+  let left = 0;
+  let right = nums.length - 1;
+  for (let i = nums.length - 1; i >= 0; i--) {
+    if (Math.abs(nums[left]) > nums[right]) {
+      result[i] = nums[left] * nums[left];
+      left++;
+    } else {
+      result[i] = nums[right] * nums[right];
+      right--;
+    }
+  }
+  return result;
+};
+
 var sortedSquares = function(nums) {
   let result = new Array(nums.length);
   let i = 0; 
