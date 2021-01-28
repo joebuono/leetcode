@@ -58,4 +58,33 @@ var backspaceCompare = function(S, T) {
   }
 };
 
+// Space: O(1)
+var backspaceCompare = function(S, T) {
+  function backspace(string, index) {
+    let count = 1;
+    while ((count > 0 && index >= 0) || string[index] === '#') {
+      if (string[index] === '#') {
+        count++;
+      } else {
+        count--;
+      }
+      index--;
+    }
+    return index;
+  };
 
+  let i = S.length - 1;
+  let j = T.length - 1;
+
+  while (i >= 0 || j >= 0) {
+    if (S[i] === '#') i = backspace(S, i - 1);
+    if (T[j] === '#') j = backspace(T, j - 1);
+    if (i < 0 && j < 0) return true;
+    if (i < 0 || j < 0) return false;
+    if (S[i] !== T[j]) return false;
+    i--;
+    j--;
+  }
+
+  return true;
+};
