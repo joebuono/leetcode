@@ -48,6 +48,8 @@ Can you solve the problem with runtime complexity less than O(n2)?
 // The obvious solutions are to either sort, or to use a set (or hash table)
 // The advanced solution is Floyd's Tortoise and Hare (Cycle Detection)
 // This is a crazy clever solution!! Who has this intuition?
+// Time: O(n)
+// Space: O(1)
 var findDuplicate = function(nums) {
   var slow = nums[0];
   var fast = nums[0];
