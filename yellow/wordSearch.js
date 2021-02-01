@@ -37,16 +37,49 @@ board and word consists only of lowercase and uppercase English letters.
  * @return {boolean}
  */
 
-// Refactored
+// Refactored based on video: 
 // Assuming we are allowed to mutate the input
 // Instead of storing the coordinates of the cells you've visited
 // thus far, mark the board cells in some way (e.g., empty space ' ')
 // so that you know you've already visited that cell
 // You'll need to return the board cell to the original
 // character after you're done recursing
+var exist = function(board, word) {
+  for (let row = 0; row < board.length; row++) {
+    for (let col = 0; col < board[0].length; col++) {    
+      if (board[row][col] === word[0] && dfs(board, row, col, 0, word)) {
+        return true;
+      }
+    }
+  }
+
+  return false;
+
+  function dfs(board, row, col, count, word) {
+    if (count === word.length) {
+      return true;
+    }
+
+    // consolidate boundary checking and character checking to one line
+    if (row < 0 || row >= board.length || col < 0 || col >= board[0].length || board[row][col] !== word[count]) {
+      return false;
+    }
+
+    let temp = board[row][col];
+    board[row][col] = ' ';
+    let found = dfs(board, row + 1, col, count + 1, word)
+      || dfs(board, row - 1, col, count + 1, word)
+      || dfs(board, row, col + 1, count + 1, word)
+      || dfs(board, row, col - 1, count + 1, word);
+    
+    board[row][col] = temp;
+    return found;
+  }
+};
 
 
-
+// Time: O(n)
+// Space: O(n) // worst case, if the word snakes through the entire board
 // First attempt
 var exist = function(board, word) {
   // I'm not going to be concerned about capitalization for now
