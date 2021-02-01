@@ -36,24 +36,38 @@ board and word consists only of lowercase and uppercase English letters.
  * @param {string} word
  * @return {boolean}
  */
+
+// Refactored
+// Assuming we are allowed to mutate the input
+// Instead of storing the coordinates of the cells you've visited
+// thus far, mark the board cells in some way (e.g., empty space ' ')
+// so that you know you've already visited that cell
+// You'll need to return the board cell to the original
+// character after you're done recursing
+
+
+
+// First attempt
 var exist = function(board, word) {
   // I'm not going to be concerned about capitalization for now
+  let rows = board.length;
+  let cols = board[0].length;
 
-  for (let row = 0; row < board.length; row++) {
-    for (let col = 0; col < board[0].length; col++) {
+  for (let row = 0; row < rows; row++) {
+    for (let col = 0; col < cols; col++) {
       // word[0] is the first letter of 'word'
       if (board[row][col] === word[0]) {
-        // start recursion (DFS?)
-        if (recurse(row, col, board[row][col])) {
+        // start recursion (DFS)
+        if (dfs(row, col, board[row][col])) {
           return true;
         };
       }
     }
-
-    return false;
   }
 
-  function recurse(row, col, string, set = new Set()) {
+  return false;
+
+  function dfs(row, col, string, set = new Set()) {
     // add row,col to set
     set.add(`${row},${col}`);
     
@@ -64,32 +78,35 @@ var exist = function(board, word) {
     let nextLetter = word[string.length];
 
     // up
-    if (!set.has(`${row - 1},${col}`) && board[row - 1] && board[row - 1][col] === nextLetter) {
-      if (recurse(row - 1, col, string + nextLetter)) {
+    if (!set.has(`${row - 1},${col}`) && row - 1 >= 0 && board[row - 1][col] === nextLetter) {
+      if (dfs(row - 1, col, string + nextLetter, set)) {
         return true;
       };
     }
 
     // right
-    if (!set.has(`${row},${col + 1}`) && board[col + 1] && board[row][col + 1] === nextLetter) {
-      if (recurse(row, col + 1, string + nextLetter)) {
+    if (!set.has(`${row},${col + 1}`) && col + 1 < cols && board[row][col + 1] === nextLetter) {
+      if (dfs(row, col + 1, string + nextLetter, set)) {
         return true;
       };
     }
 
     // down
-    if (!set.has(`${row + 1},${col}`) && board[row + 1] && board[row + 1][col] === nextLetter) {
-      if (recurse(row + 1, col, string + nextLetter)) {
+    if (!set.has(`${row + 1},${col}`) && row + 1 < rows && board[row + 1][col] === nextLetter) {
+      if (dfs(row + 1, col, string + nextLetter, set)) {
         return true;
       };
     }
 
     // left
-    if (!set.has(`${row},${col - 1}`) && board[col - 1] && board[row][col - 1] === nextLetter) {
-      if (recurse(row, col - 1, string + nextLetter)) {
+    if (!set.has(`${row},${col - 1}`) && col - 1 >= 0 && board[row][col - 1] === nextLetter) {
+      if (dfs(row, col - 1, string + nextLetter, set)) {
         return true;
       };
     }
+
+    // remove from set
+    set.delete(`${row},${col}`);
   };
 };
 
