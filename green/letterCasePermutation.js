@@ -45,11 +45,12 @@ var letterCasePermutation = function(S) {
         // if it's a digit
         if (!isNaN(parseInt(S[index]))) {
           recursePerms(perm + S[index], index + 1);
-          return 
+          return; // the return statements are crucial
         } else { // if it's a letter
           recursePerms(perm + S[index].toLowerCase(), index + 1);
           recursePerms(perm + S[index].toUpperCase(), index + 1);
-          return;
+          return; // the return statements are crucial
+          // otherwise, we get duplicate permutations
         }
       }
     }
