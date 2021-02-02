@@ -32,6 +32,16 @@ Your output answer is guaranteed to be fitted in a 32-bit integer.
  * @param {number} S
  * @return {number}
  */
+
+// The elegant solution is a variation on the 0/1 Knapsack Problem
+var findTargetSumWays = function(nums, S) {
+  // Figure out the dynamic programming solution
+};
+
+
+// Brute Force Solution
+// Time: O(2^n)
+// Space: O(n), worst case depth of the call stack
 var findTargetSumWays = function(nums, S) {
   var totalWays = 0;
     
