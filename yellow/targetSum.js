@@ -33,7 +33,32 @@ Your output answer is guaranteed to be fitted in a 32-bit integer.
  * @return {number}
  */
 var findTargetSumWays = function(nums, S) {
+  var totalWays = 0;
     
+  var recurse = function(sum = 0, index = 0) {
+    if (index === nums.length) {
+      if (sum === S) {
+        totalWays++;
+      }
+      return;
+    }
+
+    recurse(sum + nums[index], index + 1);
+    recurse(sum + (nums[index] * -1), index + 1);
+  };
+
+  recurse();
+
+  return totalWays;
 };
 
+/*
+
+I: an array of non-negative integers, an integer representing the target sum
+O: an integer, representing the number of ways you can assign + and -
+  to each integer in the input array so that their sum equals the target sum
+C: 
+E: zero?
+
+*/
 
