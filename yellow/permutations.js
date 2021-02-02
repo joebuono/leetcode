@@ -1,18 +1,6 @@
 /*
 
-46. Permutations
-Medium
-
-5148
-
-122
-
-Add to List
-
-Share
 Given an array nums of distinct integers, return all the possible permutations. You can return the answer in any order.
-
- 
 
 Example 1:
 
@@ -41,32 +29,33 @@ All the integers of nums are unique.
  * @return {number[][]}
  */
 
-// What's the time complexity?
-// Space: O(n)?
+
+// Time: O(n!), is it really factorial?
+// Space: ...
 var permute = function(nums) {
-  var result = [];
-  var options = {};
-  for (let i of nums) {
-    options[i] = true;
+  let allPerms = [];
+  let options = {};
+  for (let num of nums) {
+    options[num] = true;
   }
 
-  var recurse = function(perm) {
-    for (let i = 0; i < nums.length; i++) {
-      if (options[nums[i]]) {
-        options[nums[i]] = false;
-        perm.push(nums[i]);
+  var permute = function(perm) {
+    for (let num in options) {
+      if (options[num]) {
+        perm.push(+num);
+        options[num] = false;
         if (perm.length === nums.length) {
-          result.push([...perm]);
+          allPerms.push([...perm]);
         } else {
-          recurse(perm);
+          permute(perm, options);
         }
         perm.pop();
-        options[nums[i]] = true;
+        options[num] = true;      
       }
     }
-  }
+  };
 
-  recurse([]);
-  return result;
+  permute([]);
+
+  return allPerms;
 };
-
