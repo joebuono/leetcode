@@ -29,5 +29,29 @@ All the integers of nums are unique.
  * @return {number[][]}
  */
 var permute = function(nums) {
+  let allPerms = [];
+  let options = {};
+  for (let num of nums) {
+    options[num] = true;
+  }
 
+  var permute = function(perm) {
+    for (let num in options) {
+      if (options[num]) {
+        perm.push(+num);
+        options[num] = false;
+        if (perm.length === nums.length) {
+          allPerms.push([...perm]);
+        } else {
+          permute(perm, options);
+        }
+        perm.pop();
+        options[num] = true;      
+      }
+    }
+  };
+
+  permute([]);
+
+  return allPerms;
 };
