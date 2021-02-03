@@ -76,4 +76,3 @@ var maxSubArray = function(nums) {
 
   return globalMax;
 };
-
