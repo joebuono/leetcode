@@ -75,3 +75,33 @@ dp = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 dp = [0, 1, 1, 2, 2, 1, 2, 2, 3, 3, 2 , 3]
 
 */
+
+
+
+// 2/3/21
+var coinChange = function(coins, amount) {
+  // edge cases
+  if (!coins.length || !amount) return 0;
+
+  // sort, minor optimization
+  // coins.sort((a, b) => b - a);
+
+  let dp = new Array(amount + 1).fill(amount + 1);
+  dp[0] = 0;
+
+  for (let i = 1; i <= amount; i++) {
+    for (let j = 0; j < coins.length; j++) {
+      if (coins[j] <= i) {
+        dp[i] = Math.min(dp[i], 1 + dp[i - coins[j]]);
+      }
+    }
+  }
+
+  return dp[amount] > amount ? -1 : dp[amount];
+};
+
+/*
+[1, 2, 5]
+[0, 1, 1, 2, 2, 1, 2, 2, 3, 3, 2, 3]
+
+*/
