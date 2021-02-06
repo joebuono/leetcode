@@ -28,7 +28,28 @@ The input string length won't exceed 1000.
  * @param {string} s
  * @return {number}
  */
+
+// The LeetCode article for this problem is exceptional,
+// especially the "Further Thoughts" section
+// Time: O(n^2)
+// Space: O(1)
 var countSubstrings = function(s) {
+  let count = 0;
+
+  // expand from center
+  for (let i = 0; i < s.length; i++) {
+    isPal(i, i);      // odd-length
+    isPal(i, i + 1);  // even-length
+  }
+
+  return count;
     
+  function isPal(start, end) {
+    while (s[start] === s[end] && start >= 0 && end < s.length) {
+      count++;
+      start--;
+      end++;
+    }
+  }
 };
 
