@@ -51,6 +51,12 @@ s contains only digits and may contain leading zero(s).
  * @param {string} s
  * @return {number}
  */
+
+
+// Illuminating examples to try out:
+// '12212', 8 ways of decoding (fibonacci)
+// '12202', 2 ways of decoding
+// '12002', 0 ways of decoding
 var numDecodings = function(s) {
   if (!s.length || s[0] === '0') return 0;
 
