@@ -29,7 +29,24 @@ Constraints:
  * @param {number[]} nums
  * @return {boolean}
  */
+
+
+
+
+
+
+// Time: O(n^2)
+// Space: O(n)
 var canJump = function(nums) {
-    
+  let dp = new Array(nums.length).fill(0);
+
+  for (let i = 0; i < nums.length; i++) {
+    let j = i;
+    while (j < i + nums[i]) {
+      dp[i] = 1;
+    }
+  }
+
+  return dp[dp.length - 1];
 };
 
