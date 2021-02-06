@@ -30,6 +30,29 @@ Constraints:
  * @return {boolean}
  */
 
+// Wow, what an elegant solution!
+// Time: O(n)
+// Space: O(1)
+var canJump = function(nums) {
+  // keep track of the index of the last position
+  // we can jump to
+  let lastPosition = nums.length - 1;
+  for (let i = nums.length - 1; i >= 0; i--) {
+    // i is our current jump position
+    // nums[i] is how far we can jump from that position
+    // if we can at least jump to the last "good" position
+    // from our current position, 
+    // then update lastPosition to be assigned to
+    // our current position
+    if (i + nums[i] >= lastPosition) {
+      lastPosition = i;
+    }
+  }
+
+  return lastPosition === 0;
+};
+
+
 
 
 
