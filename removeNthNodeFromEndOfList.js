@@ -41,6 +41,30 @@ The number of nodes in the list is sz.
  * @return {ListNode}
  */
 
+// One-pass solution, two pointers
+var removeNthFromEnd = function(head, n) {
+  let dummy = new ListNode();
+  dummy.next = head;
+  let first = dummy;
+  let second = dummy;
+
+  // advances the first pointer so that the gap between
+  // the first and second pointers is n nodes apart
+  while (first && n >= 0) {
+    first = first.next;
+    n--;
+  }
+
+  while (first) {
+    first = first.next;
+    second = second.next;
+  }
+
+  second.next = second.next.next;
+
+  return dummy.next;
+};
+
 // Two-pass solution
 var removeNthFromEnd = function(head, n) {
   // We're declaring a dummy head just in case
