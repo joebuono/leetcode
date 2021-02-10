@@ -19,7 +19,19 @@ Explanation: transactions = [buy, sell, cooldown, buy, sell]
  * @return {number}
  */
 var maxProfit = function(prices) {
-    
+  let profits = new Array(prices.length).fill(0);
+  profits[1] = Math.max(prices[1] - prices[0], 0);
+
+  for (let i = 2; i < prices.length; i++) {
+    let cooldown = i < 3 ? 0 : prices[i - 3];
+    profits[i] = Math.max(
+      prices[i] - prices[i - 1] + cooldown,
+      prices[i] - prices[i - 2] + cooldown,
+      cooldown
+    );
+  }
+
+  return profits[profits.lengths - 1];
 };
 
 
