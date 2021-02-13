@@ -31,7 +31,21 @@ All the rows and columns of matrix are guaranteed to be sorted in non-degreasing
  * @param {number} k
  * @return {number}
  */
+
+
 var kthSmallest = function(matrix, k) {
-    
+
 };
 
+/*
+
+I'm thinking that we could throw all the elements into a 
+Min Heap
+
+Nope! You can apparently do it using binary search.
+
+*** Amazing! ***
+https://www.youtube.com/watch?v=oeQlc87HbbQ
+
+
+*/
