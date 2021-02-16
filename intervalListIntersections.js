@@ -43,7 +43,28 @@ endj < startj+1
  * @param {number[][]} secondList
  * @return {number[][]}
  */
+
+
+// Time: O(n^2)
+// Space: O(1)
 var intervalIntersection = function(firstList, secondList) {
-    
+  if (!firstList.length || !secondList.length) return [];
+  let result = [];
+
+  for (let i = 0; i < secondList.length; i++) {
+    for (let j = 0; j < firstList.length; j++) {
+      if (secondList[i][1] >= firstList[j][0]) {
+        let start = Math.max(firstList[j][0], secondList[i][0]);
+        let end = Math.min(firstList[j][1], secondList[i][1]);
+        if (start <= end) {
+          result.push([start, end]);
+        }
+      } else {
+        break;
+      }
+    }
+  }
+
+  return result;
 };
 
