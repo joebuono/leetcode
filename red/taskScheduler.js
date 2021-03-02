@@ -46,8 +46,28 @@ The integer n is in the range [0, 100].
  * @param {number} n
  * @return {number}
  */
+
+// There are two main ways to solve it: Use a PriorityQueue (MaxHeap), or calculate idle slots
+
+// This is the calculate idle slots solution
 var leastInterval = function(tasks, n) {
-    
+  // count frequency of tasks
+  let map = new Array(26).fill(0); // 26 letter in the alphabet
+  for (let task of tasks) {
+    map[task.charCodeAt(0) - 65]++;
+  }
+
+  // sort in asc order
+  map.sort((a, b) => b - a);
+
+  let maxVal = map[0] - 1;
+  let idleSlots = maxVal * n;
+
+  for (let i = 1; i < map.length; i++) {
+    idleSlots -= Math.min(map[i], maxVal);
+  }
+
+  return idleSlots > 0 ? tasks.length + idleSlots : tasks.length;
 };
 
 
