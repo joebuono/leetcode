@@ -44,8 +44,7 @@ Min Heap
 
 Nope! You can apparently do it using binary search.
 
-*** Amazing! ***
+*** Amazing solution! ***
 https://www.youtube.com/watch?v=oeQlc87HbbQ
-
 
 */
