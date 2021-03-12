@@ -10,7 +10,44 @@ Note: There will be some test cases with a board or a word larger than constrain
 */
 
 
+
+
 var exist = function(board, word) {
+  const visited = new Set();
+
+  for (let row = 0; row < board.length; row++) {
+    for (let col = 0; col < board[0].length; col++) {
+      if (board[row][col] === word[0]) {
+        // ADD AND REMOVE FROM SET
+        if (dfs(row, col, word, board, visited)) {
+          return true;
+        }
+      }
+    }
+  }
+
+  return false;
+};
 
 
+let DIRECTIONS = [[1,0],[0,1],[-1,0],[0,-1]];
+
+
+// Re-write this iteratively
+var dfs = function(row, col, word, board, visited, index = 1) {
+  if (index === word.length) return true;
+
+  visited.add(`${row},${col}`);
+
+  for (let [r, c] of DIRECTIONS) {
+    r += row;
+    c += col;
+
+    // ADD AND REMOVE FROM THE SET
+    // check valid
+    if (r >= 0 && r < board.length && c >= 0 && c < board[0].length && board[r][c] === word[index] && !visited.has(`${r},${c}`)) {
+      // Make sure you remember to return the recursive call!
+      return dfs(r, c, word, board, visited, index + 1);
+    }
+  }
 };
