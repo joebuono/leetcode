@@ -49,9 +49,116 @@ p and q will exist in the tree.
 
 // Note that it's a binary tree, NOT a binary "search" tree
 
+// Iterative using parent pointers
+var lowestCommonAncestor = function(root, p, q) {
+  // stack for tree traversal
+  let stack = [root];
+
+  // map for parent pointers (nothing points to root)
+  // use a map so that we can set child nodes as keys and their parents as values
+  let parents = new Map();
+  parents.set(root, null);
+
+  // iterate until we find both nodes p and q
+  while (!parents.has(p) || !parents.has(q)) {
+    let node = stack.pop();
+
+    // while traversing the tree, keep saving the parent pointers
+    if (node.left) {
+      parents.set(node.left, node);
+      stack.push(node.left);
+    }
+    if (node.right) {
+      parents.set(node.right, node);
+      stack.push(node.right);
+    }
+  }
+
+  // ancestors set for node p
+  let ancestors = new Set();
+
+  // process all the ancestors for p using parent pointers
+  while (p) {
+    ancestors.add(p);
+    p = parents.get(p);
+  }
+
+  // the first ancestor of q which appears in p's ancestor set is their LCA
+  while (!ancestors.has(q)) {
+    q = parents.get(q);
+  }
+
+  return q;
+};
 
 
-// Iterative without parent pointers (this implementation doesn't quite work)
+
+
+
+// Recursive approach
+// Time: O(n)
+// Space: O(n)
+var lowestCommonAncestor = function(root, p, q) {
+  // variable to store LCA node
+  var lca = null;
+
+  var recurse = (node) => {
+    // if we've reached the end of a branch
+    if (!node) return false;
+
+    // left recursion
+    let left = recurse(node.left);
+
+    // right recursion
+    let right = recurse(node.right);
+
+    // check if the node itself is one of the values we're searching for
+    let mid = node.val === p || node.val === q;
+
+    // if any two of the three boolean flags are true,
+    // then we've found the lowest common ancestor
+    if (left + right + mid >= 2) {
+      lca = node;
+    }
+
+    // return true if any of the three booleans is true
+    return left || right || mid;
+  };
+
+  recurse(root);
+
+  return lca;
+};
+
+
+
+
+
+
+// Attempted remix of Michael Chen's iterative DFS
+// var lowestCommonAncestor = function(root, p, q) {
+//   const foundP = false;
+//   const foundQ = false;
+
+//   const stack = [];
+
+//   while (root || stack.length) {
+//     if (root) {
+//       stack.push(root);
+//       if (root.val === p) foundP = true;
+//       if (root.val === q) foundQ = true;
+//       if (foundP && foundQ) return root;
+//       root = root.left;
+//     } else {
+//       root = stack.pop();
+//       root = root.right;
+//     }
+//   }
+// };
+
+
+// INCOMPLETE SOLUTION, not working
+// Iterative without parent pointers
 var lowestCommonAncestor = function(root, p, q) {
   // indicates the node's children are yet to be traversed
   const bothPending = 2;
@@ -129,71 +236,6 @@ var lowestCommonAncestor = function(root, p, q) {
 
   return null;
 };
-
-
-
-
-
-// Recursive approach
-// Time: O(n)
-// Space: O(n)
-var lowestCommonAncestor = function(root, p, q) {
-  // variable to store LCA node
-  var lca = null;
-
-  var recurse = (node) => {
-    // if we've reached the end of a branch
-    if (!node) return false;
-
-    // left recursion
-    let left = recurse(node.left);
-
-    // right recursion
-    let right = recurse(node.right);
-
-    // check if the node itself is one of the values we're searching for
-    let mid = node.val === p || node.val === q;
-
-    // if any two of the three boolean flags are true,
-    // then we've found the lowest common ancestor
-    if (left + right + mid >= 2) {
-      lca = node;
-    }
-
-    // return true if any of the three booleans is true
-    return left || right || mid;
-  };
-
-  recurse(root);
-
-  return lca;
-};
-
-
-
-
-
-
-// Attempted remix of Michael Chen's iterative DFS
-// var lowestCommonAncestor = function(root, p, q) {
-//   const foundP = false;
-//   const foundQ = false;
-
-//   const stack = [];
-
-//   while (root || stack.length) {
-//     if (root) {
-//       stack.push(root);
-//       if (root.val === p) foundP = true;
-//       if (root.val === q) foundQ = true;
-//       if (foundP && foundQ) return root;
-//       root = root.left;
-//     } else {
-//       root = stack.pop();
-//       root = root.right;
-//     }
-//   }
-// };
 
 
 function TreeNode(val, left, right) {
