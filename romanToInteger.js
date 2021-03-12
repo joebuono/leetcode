@@ -25,7 +25,31 @@ Given a roman numeral, convert it to an integer.
  * @param {string} s
  * @return {number}
  */
- var romanToInt = function(s) {
-    
+var romanToInt = function(s) {
+  var roman = {
+    'I': 1,
+    'V': 5,
+    'X': 10,
+    'L': 50,
+    'C': 100,
+    'D': 500,
+    'M': 1000
+  };
+
+  let lastVal = roman[s[s.length - 1]];
+  let total = lastVal;
+
+  for (let i = s.length - 2; i >= 0; i--) {
+    let currentVal = roman[s[i]];
+    if (currentVal < lastVal) {
+      total -= currentVal;
+    } else {
+      total += currentVal;
+    }
+    lastVal = currentVal;
+  }
+  
+  return total;
 };
 
+console.log(romanToInt('MCMXCIV'));
