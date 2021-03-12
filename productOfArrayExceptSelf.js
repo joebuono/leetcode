@@ -26,5 +26,18 @@ Could you solve it with constant space complexity? (The output array does not co
 var productExceptSelf = function(nums) {
   const result = new Array(nums.length).fill(1);
 
+  for (let i = 0; i < nums.length - 1; i++) {
+    result[i + 1] = result[i] * nums[i];
+  }
 
+  let prev = nums[nums.length - 1];
+
+  for (let i = nums.length - 2; i >= 0; i--) {
+    result[i] *= prev;
+    prev *= nums[i];
+  }
+
+  return result;
 };
+
+productExceptSelf([1, 2, 3, 4]);
