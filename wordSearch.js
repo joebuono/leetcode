@@ -13,15 +13,14 @@ Note: There will be some test cases with a board or a word larger than constrain
 
 
 var exist = function(board, word) {
-  const visited = new Set();
-
   for (let row = 0; row < board.length; row++) {
     for (let col = 0; col < board[0].length; col++) {
       if (board[row][col] === word[0]) {
-        // ADD AND REMOVE FROM SET
+        board[row][col] = -1;
         if (dfs(row, col, word, board, visited)) {
           return true;
         }
+        board[row][col] = word[0];
       }
     }
   }
@@ -37,7 +36,7 @@ let DIRECTIONS = [[1,0],[0,1],[-1,0],[0,-1]];
 var dfs = function(row, col, word, board, visited, index = 1) {
   if (index === word.length) return true;
 
-  visited.add(`${row},${col}`);
+  board[row][col] = -1;
 
   for (let [r, c] of DIRECTIONS) {
     r += row;
@@ -50,4 +49,6 @@ var dfs = function(row, col, word, board, visited, index = 1) {
       return dfs(r, c, word, board, visited, index + 1);
     }
   }
+
+  board[row][col] = word[0];
 };
