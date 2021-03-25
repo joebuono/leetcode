@@ -54,6 +54,7 @@ const iterativeInorder = (root) => {
 };
 
 const iterativePreorder = (root) => {
+  if (!root) return [];
   const result = [];
   const stack = [root];
 
