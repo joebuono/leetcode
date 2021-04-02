@@ -21,54 +21,58 @@ You may assume that the borders of the maze are all walls (see examples).
 // up, down, left, right
 var directions = [[-1,0],[1,0],[0,-1],[0,1]];
 
-var hasPath = function(maze, start, destination) {
-  const visited = new Set();
-  visited.add(`${start[0]},${start[1]}`);
-  var found = false;
 
-  var recurse = function(row, col) {
+// BFS (iterative)
+var hasPath = function(maze, start, destination) {
+  const visited = new Array(maze.length).fill(0).map(() => new Array(maze[0].length).fill(false));
+  visited[start[0]][start[1]] = true;
+  debugger;
+  const queue = [[start[0], start[1]]];
+
+  while (queue.length) {
+    const s = queue.shift();
+    if (s[0] === destination[0] && s[1] === destination[1]) return true;
+
     for (let [x, y] of directions) {
-      let r = row + x;
-      let c = col + y;
-      if (!canRoll(maze, r, c)) continue;
-      console.log(maze[row][col], r, c);
-      
-      console.log('row 3 col 4', maze[3][4]);
-      while (canRoll(maze, r + x, c + y)) {
+      let r = s[0] + x;
+      let c = s[1] + y;
+      while (canRoll(maze, r, c)) {
         r += x;
         c += y;
-        console.log('grid', maze[row][col], 'row', r, 'col', c);
       }
 
-      let cell = `${r},${c}`;
-      if (cell === `${destination[0]},${destination[1]}`) {
-        found = true;
-      }
-      if (!visited.has(cell)) {
-        visited.add(cell);
-        recurse(r, c);
+      r -= x;
+      c -= y;
+
+      if (!visited[r][c]) {
+        queue.push([r, c]);
+        visited[r][c] = true;
       }
     }
-  };
+  }
 
-  recurse(start[0], start[1]);
-
-  return found;
+  return false;
 };
 
 var canRoll = function(maze, row, col) {
   return row >= 0 && 
          row < maze.length && 
          col >= 0 && 
-         col < maze[0].length
+         col < maze[0].length &&
          maze[row][col] === 0;
 };
 
 
+// returns true
+// let maze = [[0,0,1,0,0],[0,0,0,0,0],[0,0,0,1,0],[1,1,0,1,1],[0,0,0,0,0]];
+// let start = [0,4];
+// let destination = [4,4];
+
+// returns false
 let maze = [[0,0,1,0,0],[0,0,0,0,0],[0,0,0,1,0],[1,1,0,1,1],[0,0,0,0,0]];
 let start = [0,4];
 let destination = [4,4];
 
+
 debugger;
 console.log(hasPath(maze, start, destination));
-
