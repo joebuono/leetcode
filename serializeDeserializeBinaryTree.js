@@ -20,7 +20,23 @@
  * @return {string}
  */
 var serialize = function(root) {
-    
+  if (!root) return null;
+  let str = '';
+
+  const preorderDFS = function(node) {
+    if (!node) {
+      str += 'n';
+      return;
+    } 
+
+    str += node.val + ',';
+    preorderDFS(node.left);
+    preorderDFS(node.right);
+  };
+
+  preorderDFS(root);
+
+  return str;
 };
 
 /**
@@ -30,7 +46,25 @@ var serialize = function(root) {
  * @return {TreeNode}
  */
 var deserialize = function(data) {
-    
+  let arr = data.split(',');
+  let index = 0;
+
+  const construct = function() {
+    if (index > arr.length || arr[index] === 'n') {
+      return null;
+    }
+
+    root = new TreeNode(parseInt(arr[index]));
+
+    index++;
+    root.left = construct();
+    index++;
+    root.right = construct();
+
+    return root;
+  };
+
+  return construct();
 };
 
 /**
