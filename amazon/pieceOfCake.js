@@ -13,24 +13,25 @@ Return the maximum area of a piece of cake after you cut at each horizontal and 
  * @param {number[]} verticalCuts
  * @return {number}
  */
-var maxArea = function(h, w, horizontalCuts, verticalCuts) {
-    
+ var maxArea = function(h, w, horizontalCuts, verticalCuts) {
+  // divide h and w into segments, find biggest segment
+  var maxHeight = findLargestCut(h, horizontalCuts);
+  var maxWidth = findLargestCut(w, verticalCuts);
+
+  return (maxHeight * maxWidth) % ((10 ** 9) + 7);
 };
 
-const dfs = (root) => {
-  const result = [];
-  const stack = [];
-
-  while (root || stack.length) {
-    if (root) {
-      stack.push(root);
-      root = root.left;
+var findLargestCut = function(length, cutsArr) {
+  let max = 0;
+  cutsArr.sort((a, b) => a - b);
+  for (let i = 0; i <= cutsArr.length; i++) {
+    if (i === 0) {
+      max = Math.max(max, cutsArr[i] - 0);
+    } else if (i === cutsArr.length) {
+      max = Math.max(max, length - cutsArr[i - 1]);
     } else {
-      root = stack.pop();
-      result.push(root.val); // Inorder
-      root = root.right;
+      max = Math.max(max, cutsArr[i] - cutsArr[i - 1]);
     }
   }
-
-  return result;
+  return max;
 };
