@@ -24,8 +24,20 @@ Explanation: All three pairs have a total duration of 120, which is divisible by
  * @param {number[]} time
  * @return {number}
  */
- var numPairsDivisibleBy60 = function(time) {
-    
+var numPairsDivisibleBy60 = function(time) {
+  let total = 0;
+  const hash = {};
+
+  for (let i = time.length - 1; i >= 0; i--) {
+    let t = time[i] % 60;
+    if (hash[t] !== undefined) {
+      total += hash[t];
+    }
+    var complement = t === 0 ? 0 : 60 - t;
+    hash[complement] = ++hash[complement] || 1;
+  }
+
+  return total;
 };
 
 
