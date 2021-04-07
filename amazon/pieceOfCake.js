@@ -13,7 +13,7 @@ Return the maximum area of a piece of cake after you cut at each horizontal and 
  * @param {number[]} verticalCuts
  * @return {number}
  */
- var maxArea = function(h, w, horizontalCuts, verticalCuts) {
+var maxArea = function(h, w, horizontalCuts, verticalCuts) {
   // divide h and w into segments, find biggest segment
   var maxHeight = findLargestCut(h, horizontalCuts);
   var maxWidth = findLargestCut(w, verticalCuts);
@@ -22,16 +22,16 @@ Return the maximum area of a piece of cake after you cut at each horizontal and 
 };
 
 var findLargestCut = function(length, cutsArr) {
-  let max = 0;
+  // sorting is necessary
   cutsArr.sort((a, b) => a - b);
-  for (let i = 0; i <= cutsArr.length; i++) {
-    if (i === 0) {
-      max = Math.max(max, cutsArr[i] - 0);
-    } else if (i === cutsArr.length) {
-      max = Math.max(max, length - cutsArr[i - 1]);
-    } else {
-      max = Math.max(max, cutsArr[i] - cutsArr[i - 1]);
-    }
+
+  // calculate max of first and last slices
+  let max = Math.max(cutsArr[0], length - cutsArr[cutsArr.length - 1]);
+  
+  // calculate max of inner slices
+  for (let i = 1; i < cutsArr.length; i++) {
+    max = Math.max(max, cutsArr[i] - cutsArr[i - 1]);
   }
+  
   return max;
 };
