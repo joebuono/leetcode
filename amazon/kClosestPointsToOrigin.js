@@ -13,8 +13,7 @@ You may return the answer in any order. The answer is guaranteed to be unique (e
  * @param {number} k
  * @return {number[][]}
  */
- var kClosest = function(points, k) {
+var kClosest = function(points, k) {
     
 };
-
 
