@@ -8,8 +8,7 @@ Given an m x n binary matrix filled with 0's and 1's, find the largest square co
  * @param {character[][]} matrix
  * @return {number}
  */
- var maximalSquare = function(matrix) {
+var maximalSquare = function(matrix) {
     
 };
-
 
