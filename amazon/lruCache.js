@@ -70,8 +70,8 @@ LRUCache.prototype.put = function(key, value) {
 
 class DoublyLinkedList {
   constructor(capacity) {
-    this.head = null;
-    this.tail = null;
+    this.head = new Node();
+    this.tail = new Node();
     // pseudo head and tail (for cleaner code and to avoid checking null)
     this.head.next = this.tail;
     this.tail.prev = this.head;
