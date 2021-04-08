@@ -13,6 +13,6 @@ Return all critical connections in the network in any order.
  * @param {number[][]} connections
  * @return {number[][]}
  */
- var criticalConnections = function(n, connections) {
+var criticalConnections = function(n, connections) {
     
 };
