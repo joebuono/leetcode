@@ -67,7 +67,6 @@ LRUCache.prototype.put = function(key, value) {
  * obj.put(key,value)
  */
 
-
 class DoublyLinkedList {
   constructor(capacity) {
     this.head = new Node();
