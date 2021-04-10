@@ -39,6 +39,7 @@ Output: ["catdog"]
 var containsWords = function(word, set) {
   if (!word.length) return false; // takes care in case of empty string
 
+  // this keeps track of which indices mark the end of a valid word
   const dp = new Array(word.length + 1).fill(false);
   // initialize to true for the start (an empty string starts the word, technically)
   dp[0] = true;
