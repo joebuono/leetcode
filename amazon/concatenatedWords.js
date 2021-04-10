@@ -23,44 +23,46 @@ Output: ["catdog"]
  * @return {string[]}
  */
 
-var findAllConcatenatedWordsInADict = function(words) {
-  // build trie
-  const trie = buildTrie(words);
-
+ var findAllConcatenatedWordsInADict = function(words) {
+  const wordSet = new Set(words);
   const result = [];
 
-  for (let word of words) {
-    if (trie[word[0]]) {
-      if (recurse(trie, word, 0, 0) > 1) {
-        result.push(word);
-      }
+  for (let i = 0; i < words.length; i++) {
+    if (containsWords(words[i], wordSet)) {
+      result.push(words[i]);
     }
   }
 
   return result;
 };
 
-var recurse = function(trie, word, index, count) {
-  let curr = trie;
-  let count = 0;
-  for (let i = index; i < word.length; i++) {
-    
-  }
+var containsWords = function(word, set) {
+  if (!word.length) return false; // takes care in case of empty string
 
-  return count;
-};
+  const dp = new Array(word.length + 1).fill(false);
+  // initialize to true for the start (an empty string starts the word, technically)
+  dp[0] = true;
 
-var buildTrie = function(words) {
-  const trieObj = {};
+  // to avoid checking the word against itself
+  set.delete(word);
 
-  for (let word of words) {
-    let trie = trieObj;
-    for (let char of word) {
-      if (!trie[char]) trie[char] = {};
-      trie = trie[char];
+  // i is the end (right side) of each substring
+  // j is the start (left side) of each substring
+  for (let i = 1; i <= word.length; i++) {
+    for (let j = 0; j < i; j++) {
+      // dp[j] means that the current word is contiguous with (starts right after) a previous word ends
+      if (dp[j] && set.has(word.substring(i, j))) {
+        // notice that it's i, not j
+        // as in, a valid subword ends at this index and is contiguous with a previous subword
+        dp[i] = true;
+        break;
+      }
     }
-    trie['.'] = true; // indicates end of word
   }
 
-  return trieObj;
+  // add back the word we removed
+  set.add(word);
+
+  return dp[word.length];
 };
+
